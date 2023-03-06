@@ -1,21 +1,26 @@
 pipeline {
   agent any
+
   stages {
     stage('Build') {
       steps {
-        script {
-          docker.build("ditiss_dvwa:${env.BUILD_NUMBER}")
-        }
+        sh 'docker build -t dvwa .'
       }
     }
-    stage('Push') {
-      steps {
-        script {
-          docker.withRegistry('https://github.com/sohamdesai1997/Project.git', 'github_id') {
-            docker.image("ditiss_dvwa:${env.BUILD_NUMBER}").push()
-          }
-        }
+
+    stage('Deploy') {
+      environment {
+        MYSQL_ROOT_PASSWORD = 'root_password'
       }
+      steps {
+        sh 'docker-compose up -d'
+      }
+    }
+  }
+
+  post {
+    always {
+      sh 'docker-compose down'
     }
   }
 }
