@@ -4,15 +4,15 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          docker.build("my-image-name:${env.BUILD_NUMBER}")
+          docker.build("ditiss_dvwa:${env.BUILD_NUMBER}")
         }
       }
     }
     stage('Push') {
       steps {
         script {
-          docker.withRegistry('https://registry.example.com', 'registry-credentials-id') {
-            docker.image("my-image-name:${env.BUILD_NUMBER}").push()
+          docker.withRegistry('https://hub.docker.com/repositories/sohamd20', 'dockerhub_id') {
+            docker.image("ditiss_dvwa:${env.BUILD_NUMBER}").push()
           }
         }
       }
