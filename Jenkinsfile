@@ -11,7 +11,7 @@ pipeline {
     stage('Push') {
       steps {
         script {
-          docker.withRegistry('https://hub.docker.com/repositories/sohamd20', 'dockerhub_id') {
+          docker.withRegistry('https://github.com/sohamdesai1997/Project.git', 'github_id') {
             docker.image("ditiss_dvwa:${env.BUILD_NUMBER}").push()
           }
         }
