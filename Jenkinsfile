@@ -27,6 +27,10 @@ pipeline {
       subject: "Build Failed: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
       body: "The build failed for ${env.JOB_NAME} [${env.BUILD_NUMBER}]. Please check the Jenkins console output for more information."
   }
-    
+    aborted {
+      mail to: 'sohamdesai20@gmail.com',
+        subject: "Build Aborted: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+        body: "The build was aborted for ${env.JOB_NAME} [${env.BUILD_NUMBER}]. Please check the Jenkins console output for more information."
+    }
   }
 }
